@@ -11,9 +11,18 @@ debug = DebugToolbarExtension(app)
 @app.route('/')
 def index():
     """Returns the homepage"""
-    getInputs()
-    return render_template("questions.html")
+    req_words = silly_story.prompts
+    return render_template("questions.html", words = req_words)
 
-def getInputs():
-    lst = silly_story.prompts
-    print(lst)
+@app.route('/results')
+def generate_story():
+    """Get the form values"""
+    
+    # dict = {}
+    
+    # for arg in request.args:
+    #     dict[arg] = request.args.get(arg)
+    
+    # return result(silly_story.generate(dict))
+    
+    return render_template("story.html", story = silly_story.generate(request.args))
